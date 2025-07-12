@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fake News Detector - Political & World News</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background: #f5f5f5;
+        color: #212121;
+        line-height: 1.6;
+      }
+
+      .app-bar {
+        background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+        color: white;
+        padding: 16px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .app-bar-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .app-bar h1 {
+        font-size: 24px;
+        font-weight: 500;
+        margin: 0;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 24px auto;
+        padding: 0 24px;
+      }
+
+      .hero-section {
+        background: white;
+        border-radius: 8px;
+        padding: 48px 40px;
+        margin-bottom: 32px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .hero-section h2 {
+        font-size: 32px;
+        font-weight: 400;
+        color: #1976d2;
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+      }
+
+      .hero-section p {
+        font-size: 16px;
+        color: #757575;
+        margin-bottom: 40px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+        margin-top: 40px;
+      }
+
+      .feature-card {
+        background: white;
+        border-radius: 8px;
+        padding: 32px 24px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 180px;
+      }
+
+      .feature-card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        transform: translateY(-4px);
+      }
+
+      .feature-icon {
+        color: #1976d2;
+        font-size: 48px;
+        margin-bottom: 16px;
+        display: block;
+      }
+
+      .feature-card h3 {
+        font-size: 18px;
+        font-weight: 500;
+        color: #212121;
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .feature-card p {
+        font-size: 14px;
+        color: #757575;
+        text-align: center;
+        line-height: 1.5;
+      }
+
+      .main-card {
+        background: white;
+        border-radius: 8px;
+        padding: 40px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 32px;
+      }
+
+      .card-title {
+        font-size: 24px;
+        font-weight: 500;
+        color: #212121;
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-align: center;
+        justify-content: center;
+      }
+
+      .form-field {
+        margin-bottom: 32px;
+      }
+
+      .form-field label {
+        display: block;
+        font-size: 16px;
+        font-weight: 500;
+        color: #424242;
+        margin-bottom: 12px;
+        text-align: left;
+      }
+
+      .input-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 18px 16px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 16px;
+        font-family: "Roboto", sans-serif;
+        transition: all 0.3s ease;
+        background: white;
+        box-sizing: border-box;
+      }
+
+      .input-field:focus {
+        outline: none;
+        border-color: #1976d2;
+        box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+      }
+
+      .input-field::placeholder {
+        color: #bdbdbd;
+      }
+
+      textarea.input-field {
+        resize: vertical;
+        min-height: 140px;
+        line-height: 1.5;
+      }
+
+      .btn-primary {
+        background: #1976d2;
+        color: white;
+        border: none;
+        padding: 16px 32px;
+        font-size: 16px;
+        font-weight: 500;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+        width: 100%;
+        min-height: 56px;
+        margin-top: 16px;
+      }
+
+      .btn-primary:hover {
+        background: #1565c0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-primary:active {
+        background: #0d47a1;
+      }
+
+      .btn-primary:disabled {
+        background: #bdbdbd;
+        cursor: not-allowed;
+      }
+
+      .result-card {
+        background: white;
+        border-radius: 8px;
+        padding: 40px;
+        margin-top: 32px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        animation: slideUp 0.5s ease-out;
+      }
+
+      .result-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 32px;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .result-icon {
+        font-size: 56px;
+        flex-shrink: 0;
+      }
+
+      .result-high-confidence {
+        border-left: 6px solid #4caf50;
+      }
+
+      .result-high-confidence .result-icon {
+        color: #4caf50;
+      }
+
+      .result-low-confidence {
+        border-left: 6px solid #f44336;
+      }
+
+      .result-low-confidence .result-icon {
+        color: #f44336;
+      }
+
+      .result-title {
+        font-size: 28px;
+        font-weight: 500;
+        color: #212121;
+        margin-bottom: 8px;
+      }
+
+      .result-subtitle {
+        font-size: 18px;
+        color: #757575;
+        margin-top: 4px;
+      }
+
+      .confidence-section {
+        margin-bottom: 32px;
+        text-align: center;
+      }
+
+      .confidence-label {
+        font-size: 16px;
+        font-weight: 500;
+        color: #424242;
+        margin-bottom: 16px;
+        text-align: center;
+      }
+
+      .confidence-bar-container {
+        background: #e0e0e0;
+        border-radius: 8px;
+        height: 12px;
+        overflow: hidden;
+        margin: 0 auto;
+        max-width: 400px;
+      }
+
+      .confidence-bar {
+        height: 100%;
+        border-radius: 8px;
+        transition: width 0.8s ease;
+      }
+
+      .confidence-high {
+        background: linear-gradient(90deg, #4caf50, #66bb6a);
+      }
+
+      .confidence-low {
+        background: linear-gradient(90deg, #f44336, #ef5350);
+      }
+
+      .confidence-value {
+        font-size: 24px;
+        font-weight: 500;
+        color: #212121;
+        margin-top: 16px;
+        text-align: center;
+      }
+
+      .result-description {
+        background: #fafafa;
+        border-radius: 8px;
+        padding: 24px;
+        font-size: 16px;
+        color: #424242;
+        line-height: 1.6;
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0 auto;
+        justify-content: center;
+      }
+
+      .chip-high {
+        background: #e8f5e8;
+        color: #2e7d32;
+      }
+
+      .chip-low {
+        background: #ffebee;
+        color: #c62828;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .divider {
+        height: 1px;
+        background: #e0e0e0;
+        margin: 32px 0;
+      }
+
+      .loading-spinner {
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 16px;
+        }
+
+        .main-card,
+        .hero-section,
+        .result-card {
+          padding: 32px 24px;
+        }
+
+        .app-bar-content {
+          padding: 0 16px;
+        }
+
+        .features {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .feature-card {
+          padding: 24px;
+          min-height: 160px;
+        }
+
+        .result-header {
+          flex-direction: column;
+          text-align: center;
+          gap: 16px;
+        }
+
+        .result-icon {
+          font-size: 48px;
+        }
+
+        .result-title {
+          font-size: 24px;
+        }
+
+        .result-subtitle {
+          font-size: 16px;
+        }
+
+        .confidence-value {
+          font-size: 20px;
+        }
+
+        .hero-section h2 {
+          font-size: 28px;
+        }
+
+        .hero-section p {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-bar">
+      <div class="app-bar-content">
+        <span class="material-icons">security</span>
+        <h1>News Authenticity Detector</h1>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="hero-section">
+        <h2>AI-Powered News Verification</h2>
+        <p>
+          Analyze political and world news articles using advanced machine
+          learning algorithms to detect potential misinformation.
+        </p>
+
+        <div class="features">
+          <div class="feature-card">
+            <div class="material-icons feature-icon">psychology</div>
+            <h3>Advanced AI Analysis</h3>
+            <p>Machine learning models trained on news data</p>
+          </div>
+          <div class="feature-card">
+            <div class="material-icons feature-icon">public</div>
+            <h3>Global News Coverage</h3>
+            <p>Specialized in political and world news detection</p>
+          </div>
+          <div class="feature-card">
+            <div class="material-icons feature-icon">analytics</div>
+            <h3>Confidence Scoring</h3>
+            <p>Detailed accuracy metrics and analysis</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-card">
+        <div class="card-title">
+          <span class="material-icons">article</span>
+          Analyze News Article
+        </div>
+
+        <form method="POST" id="newsForm">
+          <div class="form-field">
+            <label for="headline">News Headline</label>
+            <div class="input-container">
+              <input
+                type="text"
+                id="headline"
+                name="headline"
+                class="input-field"
+                placeholder="Enter the news headline you want to verify"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="body">Article Content</label>
+            <div class="input-container">
+              <textarea
+                id="body"
+                name="body"
+                class="input-field"
+                placeholder="Paste the complete article content here for comprehensive analysis"
+                rows="8"
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" id="submitBtn">
+            <span class="material-icons">search</span>
+            Analyze Article
+          </button>
+        </form>
+      </div>
+
+      {% if result %}
+      <div
+        class="result-card {% if confidence|replace('%', '')|int >= 70 %}result-high-confidence{% else %}result-low-confidence{% endif %}"
+      >
+        <div class="result-header">
+          <span class="material-icons result-icon">
+            {% if confidence|replace('%', '')|int >= 70 %}verified{% else
+            %}warning{% endif %}
+          </span>
+          <div>
+            <div class="result-title">
+              {% if confidence|replace('%', '')|int >= 70 %} High Confidence
+              Analysis {% else %} Low Confidence Analysis {% endif %}
+            </div>
+            <div class="result-subtitle">
+              {% if confidence|replace('%', '')|int >= 70 %} This article
+              appears to be authentic {% else %} This article may contain
+              misleading information {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="confidence-section">
+          <div class="confidence-label">Confidence Level</div>
+          <div class="confidence-bar-container">
+            <div
+              class="confidence-bar {% if confidence|replace('%', '')|int >= 70 %}confidence-high{% else %}confidence-low{% endif %}"
+              style="width: {{ confidence.replace('%', '') }}%"
+            ></div>
+          </div>
+          <div class="confidence-value">{{ confidence }}</div>
+        </div>
+
+        <div class="result-description">
+          {% if confidence|replace('%', '')|int >= 70 %}
+          <strong>Analysis Result:</strong> The AI model has high confidence
+          that this article is likely authentic. The content patterns, language
+          structure, and other factors align with characteristics of legitimate
+          news reporting. {% else %} <strong>Analysis Result:</strong> The AI
+          model has low confidence in this article's authenticity. The content
+          may exhibit patterns commonly associated with misinformation or
+          unreliable sources. {% endif %} <br /><br />
+          <em
+            >Disclaimer: This tool provides AI-based analysis and should not be
+            the sole source for determining news authenticity. Always verify
+            information through multiple credible sources.</em
+          >
+        </div>
+
+        <div
+          class="chip {% if confidence|replace('%', '')|int >= 70 %}chip-high{% else %}chip-low{% endif %}"
+        >
+          <span class="material-icons" style="font-size: 16px">
+            {% if confidence|replace('%', '')|int >= 70 %}check_circle{% else
+            %}error{% endif %}
+          </span>
+          {% if confidence|replace('%', '')|int >= 70 %}Likely Authentic{% else
+          %}Potentially Misleading{% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("newsForm");
+        const submitBtn = document.getElementById("submitBtn");
+
+        form.addEventListener("submit", function () {
+          submitBtn.innerHTML =
+            '<span class="material-icons loading-spinner">refresh</span> Analyzing...';
+          submitBtn.disabled = true;
+        });
+
+        // Add floating label effect
+        const inputs = document.querySelectorAll(".input-field");
+        inputs.forEach((input) => {
+          input.addEventListener("focus", function () {
+            this.parentElement.style.transform = "translateY(-1px)";
+          });
+
+          input.addEventListener("blur", function () {
+            this.parentElement.style.transform = "translateY(0)";
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
